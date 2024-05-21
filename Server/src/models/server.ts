@@ -1,6 +1,7 @@
 import express, { Application, Request, Response } from "express";
 import cors from "cors";
 import routesStu from "../routes/student";
+import routesPlaces from "../routes/place";
 import db from "../db/connection";
 
 class Server {
@@ -28,6 +29,7 @@ class Server {
       });
     });
     this.app.use("/api/students", routesStu);
+    this.app.use("/api/places", routesPlaces);
   }
 
   midlewares() {
