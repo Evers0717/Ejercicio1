@@ -5,6 +5,7 @@ import { RouterLink, RouterOutlet } from '@angular/router';
 import { initFlowbite } from 'flowbite';
 import { StudentService } from './services/student.service';
 import { ReactiveFormsModule } from '@angular/forms';
+import { PlaceService } from './services/place.service';
 
 @Component({
   selector: 'app-root',
@@ -16,7 +17,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     HttpClientModule,
     ReactiveFormsModule,
   ],
-  providers: [StudentService],
+  providers: [StudentService, PlaceService],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
 })
