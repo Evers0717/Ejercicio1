@@ -12,8 +12,9 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.updateStudent = exports.postStudent = exports.deleteStudent = exports.getStudent = exports.getStudents = void 0;
+exports.getAllLabors = exports.updateStudent = exports.postStudent = exports.deleteStudent = exports.getStudent = exports.getStudents = void 0;
 const student_1 = __importDefault(require("../models/student"));
+const places_1 = __importDefault(require("../models/places"));
 const getStudents = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const listStudents = yield student_1.default.findAll();
     res.json(listStudents);
@@ -89,3 +90,10 @@ const updateStudent = (req, res) => __awaiter(void 0, void 0, void 0, function* 
     }
 });
 exports.updateStudent = updateStudent;
+const getAllLabors = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { id } = req.params;
+    const student = yield student_1.default.findByPk(id, {
+        include: [places_1.default],
+    });
+});
+exports.getAllLabors = getAllLabors;

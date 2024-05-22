@@ -16,6 +16,7 @@ const express_1 = __importDefault(require("express"));
 const cors_1 = __importDefault(require("cors"));
 const student_1 = __importDefault(require("../routes/student"));
 const place_1 = __importDefault(require("../routes/place"));
+const placestudent_1 = __importDefault(require("../routes/placestudent"));
 const connection_1 = __importDefault(require("../db/connection"));
 class Server {
     constructor() {
@@ -39,6 +40,7 @@ class Server {
         });
         this.app.use("/api/students", student_1.default);
         this.app.use("/api/places", place_1.default);
+        this.app.use("/api/placestud", placestudent_1.default);
     }
     midlewares() {
         this.app.use(express_1.default.json());

@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import Student from "../models/student";
+import Place from "../models/places";
 
 export const getStudents = async (req: Request, res: Response) => {
   const listStudents = await Student.findAll();
@@ -72,4 +73,11 @@ export const updateStudent = async (req: Request, res: Response) => {
       msg: "Cagaste",
     });
   }
+};
+export const getAllLabors = async (req: Request, res: Response) => {
+  const { id } = req.params;
+
+  const student = await Student.findByPk(id, {
+    include: [Place],
+  });
 };

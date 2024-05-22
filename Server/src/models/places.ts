@@ -28,5 +28,4 @@ const Place = db.define(
     updatedAt: false,
   }
 );
-
 export default Place;

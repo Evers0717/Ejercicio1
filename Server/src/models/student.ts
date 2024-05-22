@@ -1,5 +1,6 @@
 import { DataTypes } from "sequelize";
 import db from "../db/connection";
+import Place from "./places";
 
 const Student = db.define(
   "Student",
