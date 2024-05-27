@@ -42,3 +42,29 @@ export const getAssignedPlaces = async (req: Request, res: Response) => {
     console.error(error);
   }
 };
+
+export const assignStudentToPlace = async (req: Request, res: Response) => {
+  const { studentId, placeId } = req.body;
+
+  try {
+    // Find the student and place by their IDs
+    const student = await Student.findByPk(studentId);
+    const place = await Place.findByPk(placeId);
+
+    // If either the student or place is not found, return an error
+    if (!student || !place) {
+      return res.status(404).json({ message: "Student or place not found" });
+    }
+
+    // Assign the student to the place
+    await PlaceStu.create({
+      studentId,
+      placeId,
+    });
+
+    res.json({ message: "Student assigned to place successfully" });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+};

@@ -21,7 +21,8 @@ const PlaceStu = connection_1.default.define("placestudent", {
         },
     },
     done: {
-        type: sequelize_1.DataTypes.BOOLEAN,
+        type: sequelize_1.DataTypes.TINYINT,
+        defaultValue: 0,
     },
 }, {
     createdAt: false,

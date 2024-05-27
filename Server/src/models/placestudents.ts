@@ -19,7 +19,8 @@ const PlaceStu = db.define(
       },
     },
     done: {
-      type: DataTypes.BOOLEAN,
+      type: DataTypes.TINYINT,
+      defaultValue: 0,
     },
   },
   {

@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getAssignedPlaces = exports.getAssignedStuds = exports.getPlacesStu = void 0;
+exports.assignStudentToPlace = exports.getAssignedPlaces = exports.getAssignedStuds = exports.getPlacesStu = void 0;
 const placestudents_1 = __importDefault(require("../models/placestudents"));
 const student_1 = __importDefault(require("../models/student"));
 const places_1 = __importDefault(require("../models/places"));
@@ -54,3 +54,26 @@ const getAssignedPlaces = (req, res) => __awaiter(void 0, void 0, void 0, functi
     }
 });
 exports.getAssignedPlaces = getAssignedPlaces;
+const assignStudentToPlace = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { studentId, placeId } = req.body;
+    try {
+        // Find the student and place by their IDs
+        const student = yield student_1.default.findByPk(studentId);
+        const place = yield places_1.default.findByPk(placeId);
+        // If either the student or place is not found, return an error
+        if (!student || !place) {
+            return res.status(404).json({ message: "Student or place not found" });
+        }
+        // Assign the student to the place
+        yield placestudents_1.default.create({
+            studentId,
+            placeId,
+        });
+        res.json({ message: "Student assigned to place successfully" });
+    }
+    catch (error) {
+        console.error(error);
+        res.status(500).json({ message: "Internal server error" });
+    }
+});
+exports.assignStudentToPlace = assignStudentToPlace;
