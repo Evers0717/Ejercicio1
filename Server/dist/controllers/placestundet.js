@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.assignStudentToPlace = exports.getAssignedPlaces = exports.getAssignedStuds = exports.getPlacesStu = void 0;
+exports.deletePlaceStuStatus = exports.updatePlaceStuStatus = exports.assignStudentToPlace = exports.getAssignedPlaces = exports.getAssignedStuds = exports.getPlacesStu = void 0;
 const placestudents_1 = __importDefault(require("../models/placestudents"));
 const student_1 = __importDefault(require("../models/student"));
 const places_1 = __importDefault(require("../models/places"));
@@ -77,3 +77,49 @@ const assignStudentToPlace = (req, res) => __awaiter(void 0, void 0, void 0, fun
     }
 });
 exports.assignStudentToPlace = assignStudentToPlace;
+const updatePlaceStuStatus = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { studentId, placeId } = req.body;
+    try {
+        // Find the PlaceStu entry by studentId and placeId
+        const placeStu = yield placestudents_1.default.findOne({
+            where: {
+                studentId,
+                placeId,
+            },
+        });
+        // If the entry is not found, return an error
+        if (!placeStu) {
+            return res.status(404).json({ message: "Entry not found" });
+        }
+        // Update the done status to 1
+        placeStu.done = 1;
+        yield placeStu.save();
+        res.json({ message: "Status updated successfully" });
+    }
+    catch (error) {
+        console.error(error);
+        res.status(500).json({ message: "Internal server error" });
+    }
+});
+exports.updatePlaceStuStatus = updatePlaceStuStatus;
+const deletePlaceStuStatus = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { studentId, placeId } = req.body;
+    try {
+        const placeStu = yield placestudents_1.default.findOne({
+            where: {
+                studentId,
+                placeId,
+            },
+        });
+        if (!placeStu) {
+            return res.status(404).json({ message: "Entry not found" });
+        }
+        yield placeStu.destroy();
+        res.json({ message: "Borrado" });
+    }
+    catch (error) {
+        console.error(error);
+        res.status(500).json({ message: "Internal server error" });
+    }
+});
+exports.deletePlaceStuStatus = deletePlaceStuStatus;

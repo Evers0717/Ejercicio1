@@ -7,4 +7,6 @@ router.get("/", placestundet_1.getPlacesStu);
 router.get("/:id/assignedPlaces", placestundet_1.getAssignedPlaces);
 router.get("/:id/assignedStuds", placestundet_1.getAssignedStuds);
 router.post("/assign", placestundet_1.assignStudentToPlace);
+router.put("/updateStatus", placestundet_1.updatePlaceStuStatus);
+router.delete("/delete", placestundet_1.deletePlaceStuStatus);
 exports.default = router;
